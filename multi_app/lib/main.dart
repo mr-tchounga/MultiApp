@@ -8,8 +8,14 @@ void main() {
   runApp(const MyApp());
 }
 
-MaterialColor appColor  = customColor(Color.fromRGBO(26, 48, 124, 1));
+MaterialColor colorPrimary= customColor(Color.fromRGBO(26, 48, 124, 1));
+MaterialColor colorSecondary= Colors.blue;
 NavBarComp navBarComp = NavBarComp();
+
+double getHeight(BuildContext context) => MediaQuery.of(context).size.height;
+double getWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
+
 
 
 class MyApp extends StatelessWidget {
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Multi App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: appColor,
+        primarySwatch: colorPrimary,
       ),
       home: const MyHomePage(title: 'QR Code Scanner'),
       // home: const qrScannerPage(title: 'QR Code Scanner'),

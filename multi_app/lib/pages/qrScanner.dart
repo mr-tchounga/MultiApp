@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:multi_app/components/menuBar.dart';
 import 'package:multi_app/components/navBar.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 NavBarComp navBarComp = NavBarComp();
 
@@ -18,7 +18,7 @@ class qrScannerPage extends StatefulWidget {
 
 class _qrScannerPageState extends State<qrScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? _controller;
+  // QRViewController? _controller;
   String _qrCode = 'No scan';
   
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -49,10 +49,10 @@ class _qrScannerPageState extends State<qrScannerPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 5,
-              child: _buidQRView(context),
-            ),
+            // Expanded(
+            //   flex: 5,
+            //   child: _buidQRView(context),
+            // ),
             // ElevatedButton(
             //   onPressed: () {scanQRCode();} ,
             //   child: Text('QR Sacnner')),
@@ -64,21 +64,21 @@ class _qrScannerPageState extends State<qrScannerPage> {
   }
 
 
-  Widget _buidQRView (BuildContext context) {
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _showQRViewCreated
-    );
-  }
+  // Widget _buidQRView (BuildContext context) {
+  //   return QRView(
+  //     key: qrKey,
+  //     onQRViewCreated: _showQRViewCreated
+  //   );
+  // }
 
-  void _showQRViewCreated(QRViewController controller){
-    setState () => _controller = controller;
+  // void _showQRViewCreated(QRViewController controller){
+  //   setState () => _controller = controller;
 
-    _controller!.scannedDataStream.listen((scannedData){
-      _qrCode = scannedData.toString();
-      print(scannedData);
-    });
-  }
+  //   _controller!.scannedDataStream.listen((scannedData){
+  //     _qrCode = scannedData.toString();
+  //     print(scannedData);
+  //   });
+  // }
 
 
   // void scanQRCode() async{

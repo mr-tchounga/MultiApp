@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_app/authPages/signupPage.dart';
 import 'package:multi_app/main.dart';
 import 'package:multi_app/pages/qrScanner.dart';
 // import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -33,6 +34,15 @@ class _MenuBarState extends State<MenuBar> {
             textColor: Colors.black,
             onTap: (){
               Navigator.of(context).push(PageRouteBuilder(pageBuilder: (_,__,___)=>const qrScannerPage(title: 'QR Code Scanner')));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.login),
+            title: const Text('Signin', style: TextStyle(fontSize: 17),),
+            iconColor: Colors.black,
+            textColor: Colors.black,
+            onTap: (){
+              Navigator.of(context).push(PageRouteBuilder(pageBuilder: (_,__,___)=>const SignupPage()));
             },
           ),
 
