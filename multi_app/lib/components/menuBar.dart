@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_app/authPages/signupPage.dart';
+import 'package:multi_app/authPages/signinPage.dart';
 import 'package:multi_app/main.dart';
 import 'package:multi_app/pages/qrScanner.dart';
 // import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -42,7 +43,7 @@ class _MenuBarState extends State<MenuBar> {
             iconColor: Colors.black,
             textColor: Colors.black,
             onTap: (){
-              Navigator.of(context).push(PageRouteBuilder(pageBuilder: (_,__,___)=>const SignupPage()));
+              Navigator.of(context).push(PageRouteBuilder(pageBuilder: (_,__,___)=> SignupPage()));
             },
           ),
 
@@ -73,8 +74,8 @@ class _userAccountState extends State<userAccount> {
               fit: BoxFit.cover)
         ),
       ),
-      accountName: const Text('NGO NJIKI Ruth'),
-      accountEmail: const Text('Parent de: SAMNICK Ruth'), 
+      accountName: const Text('Mr TCHOUNGA'),
+      accountEmail: const Text('tchounga18jordan@gmail.com'), 
     );
   }
 }
