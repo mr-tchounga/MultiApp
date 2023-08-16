@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_app/authPages/signupPage.dart';
+import 'package:multi_app/utils/auth.dart';
 
 import '../components/inputField.dart';
 import '../main.dart';
@@ -18,12 +19,22 @@ class SigninPageState extends State<SigninPage>{
   TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
 
-  void _submit(){
-    Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => const SigninPage())
-          // MaterialPageRoute(builder: (context) => const ScanPasswordPage())
-    );
+  final _submit = GlobalKey<FormState>();
+
+   Future<void> _submitForm() async {
+    if(_submit.currentState!.validate()){
+      var userData = await getUserData(_passwordController.text);
+      // print(userData[3]);
+      if (userData[3]){
+        
+      }
+      // Navigator.push(
+      //       context, 
+      //       MaterialPageRoute(builder: (context) => const SigninPage())
+      // );
+    } else{
+      // api validation error
+    }
   }
 
   void _previousItem() => Navigator.pop(context);
@@ -70,91 +81,109 @@ class SigninPageState extends State<SigninPage>{
                   ),
                   SizedBox(height: height/15),
 
-
-                  // email
-                  customInputField(
-                    height: height, 
-                    fontSize: f1,
-                    hintText: "Email",
-                    controller: _mailController,
-                    prefixIcon: const Icon(Icons.email),
-                  ),
-                  SizedBox(height: height/50),
-                  // password
-                  customInputField(
-                    obscureText: _obscureText,
-                    height: height, 
-                    fontSize: f1,
-                    hintText: "Password",
-                    controller: _passwordController,
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: GestureDetector(
-                      onTap: () => setState(() =>  _obscureText = !_obscureText),
-                      child: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off
+                  Form(
+                    key: _submit,
+                    child: Column(children: [
+                      // email
+                      customInputField(
+                        height: height, 
+                        fontSize: f1,
+                        hintText: "Email",
+                        controller: _mailController,
+                        prefixIcon: const Icon(Icons.email),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Required field Empty';
+                          } else{
+                            return null;
+                          }
+                        },
                       ),
-                    ),
-                  ),
-
-
-                  SizedBox(height: height/30,),
-
-
-                  // password forgotten
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          "Password forgotten",
-                          style: TextStyle(
-                            fontSize: f0,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                            color: Colors.black.withOpacity(.5)
+                      SizedBox(height: height/50),
+                      // password
+                      customInputField(
+                        obscureText: _obscureText,
+                        height: height, 
+                        fontSize: f1,
+                        hintText: "Password",
+                        controller: _passwordController,
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: GestureDetector(
+                          onTap: () => setState(() =>  _obscureText = !_obscureText),
+                          child: Icon(
+                            _obscureText ? Icons.visibility : Icons.visibility_off
                           ),
                         ),
-                      )
-                    ],
-                  ),  
-
-                  SizedBox(height: height/20,),
-
-                  
-
-                  Container(
-                    width: width,
-                    height: height/18,
-                    child: ElevatedButton(
-                      onPressed: _submit,
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        )),
-                        backgroundColor: MaterialStateProperty.all<Color>(colorPrimary)
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Required field Empty';
+                          } else{
+                            return null;
+                          }
+                        },
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+
+
+                      SizedBox(height: height/30,),
+
+
+                      // password forgotten
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: height/100),
-                            child: Text("Submit",
-                                  style: TextStyle(
-                                    fontSize: f2,
-                                    color: Colors.white
-                                  ),  
-                                ),
-                          ),
-                          SizedBox(width: 10,),
-                          // Icon( Icons.login ),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "Password forgotten",
+                              style: TextStyle(
+                                fontSize: f0,
+                                fontStyle: FontStyle.italic,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black.withOpacity(.5)
+                              ),
+                            ),
+                          )
                         ],
+                      ),  
+
+                      SizedBox(height: height/20,),
+
+                      Container(
+                        width: width,
+                        height: height/18,
+                        child: ElevatedButton(
+                          onPressed: _submitForm,
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            )),
+                            backgroundColor: MaterialStateProperty.all<Color>(colorPrimary)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: height/100),
+                                child: Text("Submit",
+                                      style: TextStyle(
+                                        fontSize: f2,
+                                        color: Colors.white
+                                      ),  
+                                    ),
+                              ),
+                              SizedBox(width: 10,),
+                              // Icon( Icons.login ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: height/15),   
+                      SizedBox(height: height/15),   
 
                   
+
+                    ]),
+                  ),
+
 
                   // signup
                   Row(
